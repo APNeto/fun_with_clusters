@@ -31,6 +31,9 @@ if(cluster.isPrimary ) {
     for(let times = 0; times < numCores; times++) {
         cluster.fork()
     }
+    cluster.on("exit", () => {
+        cluster.fork()
+    })
 } else {
     app.listen(3000, () => console.log(`Server ${process.pid} listening on 3000`)
     )
